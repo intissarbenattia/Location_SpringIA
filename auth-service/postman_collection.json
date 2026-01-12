@@ -1,0 +1,69 @@
+{
+  "info": {
+    "_postman_id": "auth-service-collection",
+    "name": "Auth Service API",
+    "description": "Collection for testing Auth Service endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        },
+        "description": "Endpoint de connexion - Retourne un token JWT"
+      },
+      "response": []
+    },
+    {
+      "name": "Validate Token",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer YOUR_JWT_TOKEN_HERE",
+            "description": "Remplacer YOUR_JWT_TOKEN_HERE par le token reçu du login"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/auth/validate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "validate"
+          ]
+        },
+        "description": "Endpoint de validation - Vérifie la validité du token JWT"
+      },
+      "response": []
+    }
+  ]
+}

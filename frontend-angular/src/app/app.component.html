@@ -1,0 +1,49 @@
+<div class="app-container">
+  <!-- Header avec navigation (visible uniquement si authentifié) -->
+  <header *ngIf="isAuthenticated" class="app-header">
+    <div class="header-content">
+      <h1 class="app-title">{{ title }}</h1>
+      
+      <div class="user-info">
+        <span class="welcome">Bonjour, {{ currentUser?.username || 'Utilisateur' }}</span>
+        <span class="role-badge" [class.admin]="isAdmin">
+          {{ isAdmin ? 'Admin' : 'Utilisateur' }}
+        </span>
+        <button class="btn-logout" (click)="logout()">
+          Déconnexion
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="app-nav">
+      <button 
+        class="nav-btn"
+        [class.active]="isRouteActive('/chat')"
+        (click)="goToChat()">
+        💬 Chat IA
+      </button>
+      
+      <button 
+        *ngIf="isAdmin"
+        class="nav-btn"
+        [class.active]="isRouteActive('/locations')"
+        (click)="goToLocations()">
+        🏠 Gestion Locations
+      </button>
+
+      <button 
+        *ngIf="isAdmin"
+        class="nav-btn"
+        [class.active]="isRouteActive('/dashboard/reservations')"
+        (click)="goToDashboard()">
+        📊 Dashboard Réservations
+      </button>
+    </nav>
+  </header>
+
+  <!-- Contenu principal (router-outlet) -->
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>

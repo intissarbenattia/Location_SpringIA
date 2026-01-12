@@ -1,0 +1,502 @@
+@use 'bootstrap/scss/bootstrap' as *;
+@use 'sass:color';
+
+// Variables modernes
+$bg-primary: #fafafa;
+$bg-secondary: #ffffff;
+$border-color: #e5e7eb;
+$text-primary: #111827;
+$text-secondary: #6b7280;
+$text-tertiary: #9ca3af;
+
+$accent-blue: #3b82f6;
+$accent-violet: #8b5cf6;
+$accent-green: #10b981;
+$accent-amber: #f59e0b;
+$accent-red: #ef4444;
+
+.dashboard-container {
+  min-height: 100vh;
+  background: $bg-primary;
+  padding: 2rem 3rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+// En-tête moderne
+.dashboard-header {
+  margin-bottom: 2rem;
+  
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    letter-spacing: -0.025em;
+    
+    i {
+      font-size: 1.75rem;
+      color: $text-primary;
+    }
+  }
+  
+  .subtitle {
+    color: $text-secondary;
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+}
+
+// Section Statistiques - Style cards modernes
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: $bg-secondary;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.15s ease;
+  cursor: default;
+
+  &:hover {
+    border-color: color.adjust($border-color, $lightness: -5%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .stat-content {
+    h3 {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: $text-secondary;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 600;
+      color: $text-primary;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.025em;
+    }
+
+    .stat-percentage {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: $text-tertiary;
+    }
+  }
+
+  // Variantes de couleur modernes
+  &:nth-child(1) .stat-icon {
+    background: rgba($accent-blue, 0.1);
+    color: $accent-blue;
+  }
+
+  &.confirmed .stat-icon {
+    background: rgba($accent-green, 0.1);
+    color: $accent-green;
+  }
+
+  &.pending .stat-icon {
+    background: rgba($accent-amber, 0.1);
+    color: $accent-amber;
+  }
+
+  &.cancelled .stat-icon {
+    background: rgba($accent-red, 0.1);
+    color: $accent-red;
+  }
+
+  &.revenue .stat-icon {
+    background: rgba($accent-violet, 0.1);
+    color: $accent-violet;
+  }
+}
+
+// Section Graphique
+.chart-section {
+  margin-bottom: 2rem;
+}
+
+.chart-card {
+  background: $bg-secondary;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 1.5rem;
+
+  h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: -0.025em;
+    
+    i {
+      font-size: 1.125rem;
+      color: $text-secondary;
+    }
+  }
+}
+
+.pie-chart {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 2rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: conic-gradient(
+    $accent-green 0% var(--confirmed-percentage, 0%),
+    $accent-amber var(--confirmed-percentage, 0%) calc(var(--confirmed-percentage, 0%) + var(--pending-percentage, 0%)),
+    $accent-red calc(var(--confirmed-percentage, 0%) + var(--pending-percentage, 0%)) 100%
+  );
+  border-radius: 50%;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: $bg-secondary;
+    border-radius: 50%;
+  }
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: $text-secondary;
+    font-weight: 500;
+
+    .legend-color {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+
+      &.confirmed {
+        background: $accent-green;
+      }
+
+      &.pending {
+        background: $accent-amber;
+      }
+
+      &.cancelled {
+        background: $accent-red;
+      }
+    }
+  }
+}
+
+// Section Réservations - Style table moderne
+.recent-reservations {
+  h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: -0.025em;
+    
+    i {
+      font-size: 1.125rem;
+      color: $text-secondary;
+    }
+  }
+}
+
+.table-container {
+  background: $bg-secondary;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  overflow: hidden;
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $bg-primary;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $border-color;
+    border-radius: 4px;
+    
+    &:hover {
+      background: color.adjust($border-color, $lightness: -10%);
+    }
+  }
+}
+
+.reservations-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background: $bg-primary;
+    border-bottom: 1px solid $border-color;
+
+    tr th {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 500;
+      font-size: 0.75rem;
+      color: $text-secondary;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+
+      i {
+        color: $text-tertiary;
+        margin-right: 0.375rem;
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  tbody {
+    .reservation-row {
+      border-bottom: 1px solid $border-color;
+      transition: background-color 0.15s ease;
+
+      &:hover {
+        background: $bg-primary;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      td {
+        padding: 1rem;
+        font-size: 0.875rem;
+        color: $text-primary;
+        white-space: nowrap;
+
+        &.location-name {
+          font-weight: 500;
+        }
+
+        &.user-name {
+          color: $text-secondary;
+        }
+
+        &.price {
+          font-weight: 600;
+          font-variant-numeric: tabular-nums;
+        }
+
+        &.created-date {
+          color: $text-tertiary;
+          font-size: 0.8125rem;
+        }
+      }
+    }
+  }
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+
+  &.status-confirmed {
+    background: rgba($accent-green, 0.1);
+    color: color.adjust($accent-green, $lightness: -5%);
+  }
+
+  &.status-pending {
+    background: rgba($accent-amber, 0.1);
+    color: color.adjust($accent-amber, $lightness: -10%);
+  }
+
+  &.status-cancelled {
+    background: rgba($accent-red, 0.1);
+    color: color.adjust($accent-red, $lightness: -5%);
+  }
+
+  &.status-default {
+    background: rgba($text-tertiary, 0.1);
+    color: $text-secondary;
+  }
+}
+
+.loading-message {
+  text-align: center;
+  padding: 3rem;
+  font-size: 0.875rem;
+  color: $text-secondary;
+  font-weight: 500;
+
+  i {
+    margin-right: 0.5rem;
+    color: $text-tertiary;
+  }
+}
+
+// Responsive Design
+@media (max-width: 1200px) {
+  .dashboard-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .stats-section {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .dashboard-header {
+    h1 {
+      font-size: 1.5rem;
+      
+      i {
+        font-size: 1.375rem;
+      }
+    }
+
+    .subtitle {
+      font-size: 0.8125rem;
+    }
+  }
+
+  .stats-section {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+
+    .stat-content .stat-value {
+      font-size: 1.5rem;
+    }
+  }
+
+  .chart-card {
+    padding: 1.25rem;
+
+    h2 {
+      font-size: 1rem;
+    }
+  }
+
+  .pie-chart {
+    width: 160px;
+    height: 160px;
+
+    &::after {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  .chart-legend {
+    gap: 1.25rem;
+    font-size: 0.8125rem;
+  }
+
+  .recent-reservations h2 {
+    font-size: 1rem;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+  }
+
+  .reservations-table {
+    min-width: 700px;
+
+    thead tr th {
+      padding: 0.625rem 0.75rem;
+      font-size: 0.6875rem;
+    }
+
+    tbody .reservation-row td {
+      padding: 0.75rem;
+      font-size: 0.8125rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 1rem 0.75rem;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .stat-card {
+    .stat-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 1.125rem;
+    }
+
+    .stat-content .stat-value {
+      font-size: 1.375rem;
+    }
+  }
+
+  .pie-chart {
+    width: 140px;
+    height: 140px;
+
+    &::after {
+      width: 90px;
+      height: 90px;
+    }
+  }
+
+  .reservations-table {
+    min-width: 600px;
+  }
+}

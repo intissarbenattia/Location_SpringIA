@@ -1,0 +1,136 @@
+<div class="tools-menu-overlay" (click)="onClose()">
+  <div class="tools-container" (click)="$event.stopPropagation()">
+    <!-- Header -->
+    <div class="tools-header">
+      <div class="header-content">
+        <div class="header-title">
+          <i class="bi bi-tools"></i>
+          <h2>Outils Disponibles</h2>
+        </div>
+        <p class="header-subtitle">
+          Sélectionnez un outil ou filtrez par catégorie 
+          <span class="tool-count">({{ allTools.length }} outils)</span>
+        </p>
+      </div>
+      <button class="close-btn" (click)="onClose()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <!-- Stats -->
+    <div class="tools-stats">
+      <div class="stat-card" (click)="setCategory('all')">
+        <div class="stat-icon">
+          <i class="bi bi-grid-3x3-gap"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value">{{ allTools.length }}</div>
+          <div class="stat-label">Outils Totaux</div>
+        </div>
+      </div>
+      <div class="stat-card" (click)="setCategory('location')">
+        <div class="stat-icon">
+          <i class="bi bi-house-door"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value">{{ locationTools.length }}</div>
+          <div class="stat-label">Outils Locations</div>
+        </div>
+      </div>
+      <div class="stat-card" (click)="setCategory('reservation')">
+        <div class="stat-icon">
+          <i class="bi bi-calendar-check"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value">{{ reservationTools.length }}</div>
+          <div class="stat-label">Outils Réservations</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="category-filters">
+      <div class="filter-buttons">
+        <button 
+          [class.active]="selectedCategory === 'all'"
+          (click)="setCategory('all')"
+          class="filter-btn"
+        >
+          <i class="bi bi-grid"></i>
+          <span>Tous ({{ allTools.length }})</span>
+        </button>
+        <button 
+          [class.active]="selectedCategory === 'location'"
+          (click)="setCategory('location')"
+          class="filter-btn location-btn"
+        >
+          <i class="bi bi-house-door"></i>
+          <span>Locations ({{ locationTools.length }})</span>
+        </button>
+        <button 
+          [class.active]="selectedCategory === 'reservation'"
+          (click)="setCategory('reservation')"
+          class="filter-btn reservation-btn"
+        >
+          <i class="bi bi-calendar-check"></i>
+          <span>Réservations ({{ reservationTools.length }})</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tools Grid -->
+    <div class="tools-grid-container">
+      <div *ngIf="allTools.length === 0" class="no-tools">
+        <i class="bi bi-search"></i>
+        <p>Aucun outil trouvé pour cette catégorie</p>
+      </div>
+      
+      <div class="tools-grid">
+        <div *ngFor="let tool of allTools" class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon" [style.background-color]="getCategoryColor(tool.category) + '20'">
+              <i [class]="tool.icon" [style.color]="getCategoryColor(tool.category)"></i>
+            </div>
+            <div class="tool-info">
+              <h3>{{ tool.name }}</h3>
+              <span class="tool-category" [style.background-color]="getCategoryColor(tool.category) + '15'" [style.color]="getCategoryColor(tool.category)">
+                {{ tool.category === 'location' ? 'Location' : 'Réservation' }}
+              </span>
+            </div>
+          </div>
+          
+          <div class="tool-body">
+            <p class="tool-description">{{ tool.description }}</p>
+            
+            <div class="tool-id">
+              <label>Identifiant :</label>
+              <code>{{ tool.id }}</code>
+            </div>
+            
+            <div *ngIf="tool.example" class="tool-example">
+              <label><i class="bi bi-lightbulb"></i> Exemple :</label>
+              <p>"{{ tool.example }}"</p>
+            </div>
+          </div>
+          
+          <div class="tool-footer">
+            <button class="use-btn" [style.background-color]="getCategoryColor(tool.category)" (click)="useTool(tool.id)">
+              <i class="bi bi-play-circle"></i> Utiliser
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="tools-footer">
+      <div class="footer-tip">
+        <i class="bi bi-info-circle"></i>
+        <span>Cliquez sur "Utiliser" pour exécuter l'outil sélectionné</span>
+      </div>
+      <div class="footer-info">
+        <small>Total : {{ allTools.length }} outils disponibles</small>
+      </div>
+    </div>
+  </div>
+</div>

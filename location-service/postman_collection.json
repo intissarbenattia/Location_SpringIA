@@ -1,0 +1,307 @@
+{
+  "info": {
+    "_postman_id": "location-service-api",
+    "name": "Location Service API",
+    "description": "Collection des endpoints pour le service de gestion des locations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Locations",
+      "item": [
+        {
+          "name": "Get All Locations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/locations",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "locations"
+              ]
+            },
+            "description": "Récupère la liste de toutes les locations"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Location by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/locations/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "locations",
+                "1"
+              ]
+            },
+            "description": "Récupère une location spécifique par son ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Available Locations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/locations/disponibles",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "locations",
+                "disponibles"
+              ]
+            },
+            "description": "Récupère uniquement les locations actuellement disponibles"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Locations by Type",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/locations/type/Appartement",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "locations",
+                "type",
+                "Appartement"
+              ]
+            },
+            "description": "Récupère les locations d'un type spécifique (Appartement, Maison, Voiture, Équipement)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Location",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"Appartement\",\n  \"nom\": \"Appartement Moderne\",\n  \"adresse\": \"123 Rue de la Paix, Tunis\",\n  \"prixParJour\": 150.0,\n  \"description\": \"Bel appartement avec vue sur mer\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/locations",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "locations"
+              ]
+            },
+            "description": "Crée une nouvelle location"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Location",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"Appartement\",\n  \"nom\": \"Appartement Luxe\",\n  \"adresse\": \"123 Rue de la Paix, Tunis\",\n  \"prixParJour\": 200.0,\n  \"description\": \"Appartement de luxe avec balcon\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/locations/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "locations",
+                "1"
+              ]
+            },
+            "description": "Met à jour une location existante"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Location",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/locations/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "locations",
+                "1"
+              ]
+            },
+            "description": "Supprime une location"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "item": [
+        {
+          "name": "Create Apartment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"Appartement\",\n  \"nom\": \"Studio Centre-Ville\",\n  \"adresse\": \"15 Rue de la République, Tunis\",\n  \"prixParJour\": 80.0,\n  \"description\": \"Studio moderne avec vue sur mer\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/locations",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "locations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create House",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"Maison\",\n  \"nom\": \"Villa Seaside\",\n  \"adresse\": \"45 Avenue Habib Bourguiba, La Marsa\",\n  \"prixParJour\": 250.0,\n  \"description\": \"Villa 4 chambres avec piscine\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/locations",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "locations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Car",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"Voiture\",\n  \"nom\": \"Peugeot 208\",\n  \"adresse\": \"Agence Centre-Ville\",\n  \"prixParJour\": 45.0,\n  \"description\": \"Voiture économique, climatisée\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/locations",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "locations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Equipment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"Équipement\",\n  \"nom\": \"Projector 4K\",\n  \"adresse\": \"Dépôt Nord\",\n  \"prixParJour\": 25.0,\n  \"description\": \"Vidéoprojecteur 4K haute luminosité\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/locations",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "locations"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

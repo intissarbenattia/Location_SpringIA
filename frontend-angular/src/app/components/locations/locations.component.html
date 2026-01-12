@@ -1,0 +1,217 @@
+<div class="locations-container">
+  <h2>Gestion des Locations</h2>
+
+  <!-- Messages d'erreur -->
+  <div *ngIf="error" class="alert alert-error">
+    {{ error }}
+  </div>
+
+  <!-- Bouton pour créer une nouvelle location -->
+  <div class="actions">
+    <button
+      class="btn btn-primary"
+      (click)="showCreateForm = !showCreateForm; showEditForm = false; cancelEdit()"
+      [disabled]="loading">
+      {{ showCreateForm ? 'Annuler' : 'Nouvelle Location' }}
+    </button>
+  </div>
+
+  <!-- Formulaire de création -->
+  <div *ngIf="showCreateForm" class="form-container">
+    <h3>Créer une nouvelle location</h3>
+    <form (ngSubmit)="createLocation()" #createForm="ngForm">
+      <div class="form-group">
+        <label for="create-type">Type:</label>
+        <input
+          type="text"
+          id="create-type"
+          [(ngModel)]="newLocation.type"
+          name="type"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="create-nom">Nom:</label>
+        <input
+          type="text"
+          id="create-nom"
+          [(ngModel)]="newLocation.nom"
+          name="nom"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="create-adresse">Adresse:</label>
+        <input
+          type="text"
+          id="create-adresse"
+          [(ngModel)]="newLocation.adresse"
+          name="adresse"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="create-prix">Prix par jour (€):</label>
+        <input
+          type="number"
+          id="create-prix"
+          [(ngModel)]="newLocation.prixParJour"
+          name="prixParJour"
+          min="0"
+          step="0.01"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="create-description">Description:</label>
+        <textarea
+          id="create-description"
+          [(ngModel)]="newLocation.description"
+          name="description"
+          rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input
+            type="checkbox"
+            [(ngModel)]="newLocation.disponible"
+            name="disponible">
+          Disponible
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="loading || !createForm.form.valid">
+          Créer
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="showCreateForm = false; resetNewLocation()">
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Formulaire d'édition -->
+  <div *ngIf="showEditForm && editingLocation" class="form-container">
+    <h3>Modifier la location</h3>
+    <form (ngSubmit)="updateLocation()" #editForm="ngForm">
+      <div class="form-group">
+        <label for="edit-type">Type:</label>
+        <input
+          type="text"
+          id="edit-type"
+          [(ngModel)]="editingLocation.type"
+          name="type"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-nom">Nom:</label>
+        <input
+          type="text"
+          id="edit-nom"
+          [(ngModel)]="editingLocation.nom"
+          name="nom"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-adresse">Adresse:</label>
+        <input
+          type="text"
+          id="edit-adresse"
+          [(ngModel)]="editingLocation.adresse"
+          name="adresse"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-prix">Prix par jour (€):</label>
+        <input
+          type="number"
+          id="edit-prix"
+          [(ngModel)]="editingLocation.prixParJour"
+          name="prixParJour"
+          min="0"
+          step="0.01"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-description">Description:</label>
+        <textarea
+          id="edit-description"
+          [(ngModel)]="editingLocation.description"
+          name="description"
+          rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input
+            type="checkbox"
+            [(ngModel)]="editingLocation.disponible"
+            name="disponible">
+          Disponible
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="loading || !editForm.form.valid">
+          Mettre à jour
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tableau des locations -->
+  <div class="table-container" *ngIf="!loading || locations.length > 0">
+    <table class="locations-table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Nom</th>
+          <th>Adresse</th>
+          <th>Prix/Jour</th>
+          <th>Disponible</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let location of locations" [class.unavailable]="!location.disponible">
+          <td>{{ location.type }}</td>
+          <td>{{ location.nom }}</td>
+          <td>{{ location.adresse }}</td>
+          <td>{{ location.prixParJour }} €</td>
+          <td>
+            <span [class]="location.disponible ? 'status-available' : 'status-unavailable'">
+              {{ location.disponible ? 'Oui' : 'Non' }}
+            </span>
+          </td>
+          <td class="actions-cell">
+            <button class="btn btn-edit" (click)="editLocation(location)" [disabled]="loading">
+              Modifier
+            </button>
+            <button class="btn btn-delete" (click)="deleteLocation(location.id!)" [disabled]="loading">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Message de chargement -->
+  <div *ngIf="loading && locations.length === 0" class="loading">
+    Chargement des locations...
+  </div>
+
+  <!-- Message si aucune location -->
+  <div *ngIf="!loading && locations.length === 0" class="no-data">
+    Aucune location trouvée.
+  </div>
+</div>

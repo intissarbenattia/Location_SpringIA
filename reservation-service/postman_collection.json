@@ -1,0 +1,241 @@
+{
+  "info": {
+    "_postman_id": "reservation-service-collection",
+    "name": "Reservation Service API",
+    "description": "API endpoints for SmartRent Reservation Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/reservations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Reservation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"locationId\": 1,\n  \"clientNom\": \"Jean Dupont\",\n  \"clientEmail\": \"jean.dupont@example.com\",\n  \"dateDebut\": \"2025-02-01\",\n  \"dateFin\": \"2025-02-05\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/reservations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Reservation by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/reservations/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservations",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Reservations by Location",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/reservations/location/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservations",
+            "location",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Reservations by Client Email",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/reservations/client/jean.dupont@example.com",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservations",
+            "client",
+            "jean.dupont@example.com"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Reservations by Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/reservations/statut/CONFIRMÉE",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservations",
+            "statut",
+            "CONFIRMÉE"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Reservation",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clientNom\": \"Jean Dupont Updated\",\n  \"clientEmail\": \"jean.updated@example.com\",\n  \"dateDebut\": \"2025-02-01\",\n  \"dateFin\": \"2025-02-07\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/reservations/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservations",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Confirm Reservation",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/reservations/1/confirm",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservations",
+            "1",
+            "confirm"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancel Reservation",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/reservations/1/cancel",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservations",
+            "1",
+            "cancel"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Reservation",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/reservations/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservations",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+<div class="chat-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="user-profile">
+      <div class="avatar">
+        <i class="bi bi-person-circle"></i>
+      </div>
+      <div class="user-info">
+        <h3>{{ username }}</h3>
+        <div>
+          <span class="status online"></span>
+          <span class="status-text">En ligne</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Questions rapides -->
+    <div class="quick-questions">
+      <h4><i class="bi bi-lightbulb"></i> Questions suggérées</h4>
+      <div class="questions-list">
+        <button 
+          *ngFor="let question of exampleQuestions"
+          class="question-btn"
+          (click)="useExample(question)">
+          {{ question }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="quick-actions">
+      <button class="action-btn new-session" (click)="newSession()">
+        <i class="bi bi-plus-circle"></i> Nouvelle session
+      </button>
+      <button class="action-btn logout" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i> Déconnexion
+      </button>
+    </div>
+  </div>
+
+  <!-- Zone principale -->
+  <div class="chat-main">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="header-left">
+        <div class="chat-title">
+          <i class="bi bi-chat-dots-fill"></i>
+          <h2>Assistant IA Immobilier</h2>
+        </div>
+        <p class="chat-subtitle">
+          <i class="bi bi-shield-check"></i> Réponses sécurisées en temps réel
+        </p>
+      </div>
+      <div class="header-right">
+        <button class="tools-btn" (click)="toggleToolsMenu()">
+          <i class="bi bi-tools"></i> Outils
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div 
+      class="messages-container" 
+      #messagesContainer
+      [class.loading]="loading">
+      
+      <!-- Message de bienvenue -->
+      <div *ngIf="messages.length === 0" class="welcome-message">
+        <div class="welcome-card">
+          <div class="welcome-icon">
+            <i class="bi bi-robot"></i>
+          </div>
+          <h3>Bonjour, je suis votre assistant IA</h3>
+          <p>Posez-moi des questions sur les locations disponibles, les prix ou les réservations.</p>
+          <p class="tip">
+            <i class="bi bi-info-circle"></i>
+            Essayez les questions suggérées à gauche pour commencer rapidement
+          </p>
+        </div>
+      </div>
+
+      <!-- Messages du chat -->
+      <div *ngFor="let message of messages" 
+           [ngClass]="{
+             'message': true, 
+             'user': message.role === 'user', 
+             'assistant': message.role === 'assistant', 
+             'thinking': message.role === 'assistant' && message.content === 'En train de réfléchir...'
+           }">
+        <div class="message-header">
+          <div class="message-avatar">
+            <i [class]="message.role === 'user' ? 'bi bi-person' : 'bi bi-robot'"></i>
+          </div>
+          <div class="message-info">
+            <strong>{{ message.role === 'user' ? username : 'Assistant IA' }}</strong>
+            <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+          </div>
+        </div>
+        <div class="message-content">
+          <p class="message-text">{{ message.content }}</p>
+          <div *ngIf="message.role === 'assistant' && message.content === 'En train de réfléchir...'" class="thinking-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone de saisie -->
+    <div class="input-container">
+      <div class="input-wrapper">
+        <div class="input-group">
+          <input
+            type="text"
+            [(ngModel)]="userMessage"
+            (keyup.enter)="sendMessage()"
+            (input)="filterTools()"
+            placeholder="Posez votre question ici..."
+            class="message-input"
+            [disabled]="loading"
+            #messageInput>
+          
+          <div class="input-actions">
+            <button 
+              class="send-btn"
+              (click)="sendMessage()"
+              [disabled]="loading || !userMessage.trim()">
+              <i class="bi bi-send-fill"></i>
+            </button>
+            
+            <button 
+              class="action-btn"
+              (click)="toggleToolsMenu()"
+              title="Outils">
+              <i class="bi bi-magic"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Suggestions d'outils -->
+        <div *ngIf="showToolSuggestions && userMessage.trim().length > 2" class="tool-suggestions">
+          <div class="suggestion-header">
+            <small><i class="bi bi-lightning"></i> Suggestions d'outils</small>
+          </div>
+          <div class="suggestion-buttons">
+            <button class="suggestion-btn">
+              <i class="bi bi-house"></i> Recherche de locations
+            </button>
+            <button class="suggestion-btn">
+              <i class="bi bi-calendar-check"></i> Vérifier disponibilités
+            </button>
+            <button class="suggestion-btn">
+              <i class="bi bi-cash-coin"></i> Calculer le prix
+            </button>
+          </div>
+        </div>
+        
+        <!-- Indicateur -->
+        <div class="input-info">
+          <small>
+            <span *ngIf="userMessage.length > 0">
+              {{ userMessage.length }}/1000 caractères
+            </span>
+            <span *ngIf="userMessage.length === 0">
+              Appuyez sur <kbd>Enter</kbd> pour envoyer
+            </span>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu des outils -->
+  <app-tools-menu 
+    *ngIf="showToolsMenu"
+    (close)="closeToolsMenu()">
+  </app-tools-menu>
+</div>

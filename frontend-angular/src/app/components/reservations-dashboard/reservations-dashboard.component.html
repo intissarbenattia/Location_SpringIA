@@ -1,0 +1,127 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1><i class="bi bi-bar-chart-fill"></i> Dashboard Réservations</h1>
+    <p class="subtitle">Statistiques et gestion des réservations en temps réel</p>
+  </div>
+
+  <!-- Section Statistiques -->
+  <div class="stats-section">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="bi bi-calendar-check"></i>
+      </div>
+      <div class="stat-content">
+        <h3>Réservations Totales</h3>
+        <p class="stat-value">{{ stats.total }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card confirmed">
+      <div class="stat-icon">
+        <i class="bi bi-check-circle-fill"></i>
+      </div>
+      <div class="stat-content">
+        <h3>Confirmées</h3>
+        <p class="stat-value">{{ stats.confirmed }}</p>
+        <span class="stat-percentage">{{ (stats.confirmed / stats.total * 100 | number:'1.0-0') }}%</span>
+      </div>
+    </div>
+
+    <div class="stat-card pending">
+      <div class="stat-icon">
+        <i class="bi bi-clock-fill"></i>
+      </div>
+      <div class="stat-content">
+        <h3>En Attente</h3>
+        <p class="stat-value">{{ stats.pending }}</p>
+        <span class="stat-percentage">{{ (stats.pending / stats.total * 100 | number:'1.0-0') }}%</span>
+      </div>
+    </div>
+
+    <div class="stat-card cancelled">
+      <div class="stat-icon">
+        <i class="bi bi-x-circle-fill"></i>
+      </div>
+      <div class="stat-content">
+        <h3>Annulées</h3>
+        <p class="stat-value">{{ stats.cancelled }}</p>
+        <span class="stat-percentage">{{ (stats.cancelled / stats.total * 100 | number:'1.0-0') }}%</span>
+      </div>
+    </div>
+
+    <div class="stat-card revenue">
+      <div class="stat-icon">
+        <i class="bi bi-currency-euro"></i>
+      </div>
+      <div class="stat-content">
+        <h3>Revenu Total</h3>
+        <p class="stat-value">{{ formatPrice(stats.revenue) }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Graphique de distribution -->
+  <div class="chart-section">
+    <div class="chart-card">
+      <h2><i class="bi bi-pie-chart-fill"></i> Distribution des Réservations</h2>
+      <div class="pie-chart"
+           [style.--confirmed-percentage.%]="stats.confirmed / stats.total * 100"
+           [style.--pending-percentage.%]="stats.pending / stats.total * 100">
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item">
+          <span class="legend-color confirmed"></span>
+          <span>Confirmées ({{ stats.confirmed }})</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color pending"></span>
+          <span>En Attente ({{ stats.pending }})</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color cancelled"></span>
+          <span>Annulées ({{ stats.cancelled }})</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Réservations Récentes -->
+  <div class="recent-reservations">
+    <h2><i class="bi bi-list-check"></i> Réservations Récentes</h2>
+    <div class="table-container">
+      <table class="reservations-table">
+        <thead>
+          <tr>
+            <th><i class="bi bi-house-door"></i> Propriété</th>
+            <th><i class="bi bi-person"></i> Client</th>
+            <th><i class="bi bi-calendar-event"></i> Check-in</th>
+            <th><i class="bi bi-calendar-x"></i> Check-out</th>
+            <th><i class="bi bi-cash"></i> Prix</th>
+            <th><i class="bi bi-info-circle"></i> Statut</th>
+            <th><i class="bi bi-clock"></i> Création</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let res of recentReservations" class="reservation-row">
+            <td class="location-name" data-label="Propriété">{{ res.locationName }}</td>
+            <td class="user-name" data-label="Client">{{ res.userName }}</td>
+            <td data-label="Check-in">{{ formatDate(res.checkIn) }}</td>
+            <td data-label="Check-out">{{ formatDate(res.checkOut) }}</td>
+            <td class="price" data-label="Prix">{{ formatPrice(res.price) }}</td>
+            <td data-label="Statut">
+              <span [class]="'status-badge ' + getStatusClass(res.status)">
+                {{ res.status }}
+              </span>
+            </td>
+            <td class="created-date" data-label="Création">{{ formatDate(res.createdAt) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Message de chargement -->
+  <div *ngIf="loading" class="loading-message">
+    <i class="bi bi-hourglass-split"></i> Chargement des données...
+  </div>
+</div>

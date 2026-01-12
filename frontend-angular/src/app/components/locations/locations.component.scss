@@ -1,0 +1,422 @@
+@use 'bootstrap/scss/bootstrap' as *;
+.locations-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 30px;
+  position: relative;
+  overflow-x: hidden;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.8) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(195, 207, 226, 0.6) 0%, transparent 40%);
+    z-index: -1;
+  }
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+    animation: expandWidth 2s ease-out;
+  }
+}
+
+@keyframes expandWidth {
+  from { width: 0; }
+  to { width: 100px; }
+}
+
+.alert-error {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  animation: slideInDown 0.5s ease-out;
+  box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+}
+
+.actions {
+  margin-bottom: 30px;
+  
+  .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 15px 35px rgba(102, 126, 234, 0.3),
+        0 5px 15px rgba(118, 75, 162, 0.2);
+    }
+    
+    &:active {
+      transform: translateY(-1px);
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    &:hover::before {
+      left: 100%;
+    }
+  }
+}
+
+.form-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  h3 {
+    color: #667eea;
+    margin-bottom: 25px;
+    font-weight: 600;
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s;
+    background: rgba(255, 255, 255, 0.9);
+
+    &:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+      background: white;
+    }
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+    transform: scale(1.2);
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+
+  .btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s;
+
+    &-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      color: white;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+      }
+    }
+
+    &-secondary {
+      background: white;
+      border: 2px solid #e0e0e0;
+      color: #666;
+
+      &:hover {
+        border-color: #667eea;
+        color: #667eea;
+        transform: translateY(-2px);
+      }
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      transform: none !important;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.table-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.8);
+  animation: fadeIn 0.8s ease-out;
+}
+
+.locations-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+
+  thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    
+    th {
+      padding: 20px;
+      text-align: left;
+      color: white;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 14px;
+      
+      &:first-child {
+        border-radius: 20px 0 0 0;
+      }
+      
+      &:last-child {
+        border-radius: 0 20px 0 0;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+      animation: slideIn 0.5s ease-out backwards;
+      
+      @for $i from 1 through 20 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{($i - 1) * 0.05}s;
+        }
+      }
+
+      &:hover {
+        background: rgba(102, 126, 234, 0.05);
+        transform: translateX(5px);
+      }
+
+      &.unavailable {
+        opacity: 0.7;
+        background: rgba(0, 0, 0, 0.02);
+      }
+
+      td {
+        padding: 20px;
+        color: #333;
+        
+        &:first-child {
+          font-weight: 600;
+          color: #667eea;
+        }
+      }
+    }
+  }
+}
+
+.status-available {
+  display: inline-block;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  animation: pulseGreen 2s infinite;
+}
+
+.status-unavailable {
+  display: inline-block;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 10px;
+  
+  .btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+    border: none;
+    
+    &-edit {
+      background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+      color: white;
+      
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+      }
+    }
+    
+    &-delete {
+      background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+      color: white;
+      
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
+      }
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+  }
+}
+
+.loading, .no-data {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 18px;
+  color: #666;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  margin-top: 30px;
+  animation: pulse 2s infinite;
+}
+
+.no-data {
+  animation: none;
+  color: #999;
+}
+
+// Animations
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulseGreen {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .locations-container {
+    padding: 20px 15px;
+  }
+  
+  .form-container {
+    padding: 20px;
+  }
+  
+  .locations-table {
+    display: block;
+    overflow-x: auto;
+    
+    thead th, tbody td {
+      padding: 15px 10px;
+      font-size: 14px;
+    }
+  }
+  
+  .actions-cell {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+}
