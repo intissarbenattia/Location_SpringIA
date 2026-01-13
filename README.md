@@ -395,79 +395,55 @@ public class AgentController {
 }
 ```
 
----
 
-## 📈 Monitoring & Observabilité
 
-- **Spring Boot Actuator** : `/actuator`
-- **Health Checks** : `/actuator/health`
-- **Metrics** : `/actuator/metrics`
-- **Logs** : Centralisé via SLF4J + Logback
-- **Tracing Distribué** : Spring Cloud Sleuth (optionnel)
 
----
 
-## 🤝 Contribution
 
-1. **Fork** le repository
-2. Créez une branche (`git checkout -b feature/AmazingFeature`)
-3. **Commitez** vos changements (`git commit -m 'Add AmazingFeature'`)
-4. **Poussez** la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrez une **Pull Request**
 
-### Conventions de Code
-- Respect des conventions Java (camelCase, etc.)
-- Tests unitaires pour chaque fonctionnalité
-- Documentation des API avec Javadoc
-- Commits explicites et atomiques
 
----
 
-## 📝 Licence
 
-Ce projet est sous licence **MIT**. Voir [LICENSE](LICENSE) pour plus de détails.
 
----
 
-## 👥 Auteurs et Contributeurs
 
-- **Intissar Ben Attia** - Architecture & Développement Principal
-- Liste des contributeurs à venir
 
----
 
-## 📞 Support et Assistance
 
-- 📧 **Email** : support@smartrent.com
-- 💬 **Issues** : GitHub Issues
-- 📖 **Documentation** : [Wiki](../../wiki)
-- 🐛 **Bug Reports** : [Bug Tracker](../../issues)
 
----
 
-## 📚 Ressources Supplémentaires
 
-- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
-- [Spring Cloud Documentation](https://spring.io/projects/spring-cloud)
-- [Angular Documentation](https://angular.io/docs)
-- [Spring AI Documentation](https://docs.spring.io/spring-ai/reference/)
-- [Eureka Documentation](https://github.com/Netflix/eureka/wiki)
 
----
 
-## 🎯 Roadmap Futur
 
-- [ ] Intégration Docker Swarm
-- [ ] Kubernetes manifests (Helm charts)
-- [ ] GraphQL API
-- [ ] WebSockets pour notifications temps réel
-- [ ] Machine Learning pour prédiction de prix
-- [ ] Multi-language support (i18n)
-- [ ] Mobile App (React Native)
-- [ ] Advanced Analytics Dashboard
 
----
 
-**Dernière mise à jour** : Janvier 2026
 
-Fait avec ❤️ par SmartRent Team
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
